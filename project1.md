@@ -5,4 +5,6 @@ The LAMP stack is a popular open-source solution stack used primarily in web dev
 ## _STEP 1 — INSTALLING APACHE AND UPDATING THE FIREWALL_
 - Create an [AWS](aws.amazon.com) account and spin up an EC2 instance (Ubuntu Server 20.04 LTS (HVM) - t2.micro)
 
-![LAMP EC2](../Project1/running%20ec2%20instance.JPG)
+![LAMP EC2](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project1/running%20ec2%20instance.JPG)
+
+
