@@ -22,3 +22,34 @@ sudo apt update
 sudo apt install apache2
 ```
 - To verify that apache2 is running as a Service in our OS, use following command ``` sudo systemctl status apache2```
+- To retrive the public-ip from the instance. ```curl -s http://169.254.169.254/latest/meta-data/public-ipv4```
+
+## _STEP 2 — INSTALLING MYSQL AND PHP_
+---
+- Install MYSQL for database and PHP for backend development
+
+- Again, use ‘apt’ to acquire and install MYSQL: ``` sudo apt install mysql-server```
+- Run a security script that comes pre-installed with MySQL using: ``` sudo mysql_secure_installation```
+-  In addition to the php package, you’ll need php-mysql, a PHP module that allows PHP to communicate with MySQL-based databases. You’ll also need [libapache2-mod-php]() to enable Apache to handle PHP files. Core PHP packages will automatically be installed as dependencies.
+- To install these 3 packages at once, run: ``` sudo apt install php libapache2-mod-php php-mysql```
+- Once the installation is finished, you can run the following command to confirm your PHP version: ```php -v```
+
+## _STEP 3 — CREATING A VIRTUAL HOST FOR YOUR WEBSITE USING APACHE_
+---
+- Set up a domain called [projectlamp]()
+- Create the directory for projectlamp using mkdir command as follows ```sudo mkdir /var/www/projectlamp```
+
+- Assign ownership of the directory with your current system user ```sudo chown -R $USER:$USER /var/www/projectlamp```
+
+- Create and open a new configuration file in Apache’s sites-available directory ```sudo vi /etc/apache2/sites-available/projectlamp.conf```
+- Paste in the following bare-bones configuration by hitting on **i** on the keyboard to enter the insert mode, and paste the text
+```
+<VirtualHost *:80>
+    ServerName projectlamp
+    ServerAlias www.projectlamp 
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/projectlamp
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
