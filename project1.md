@@ -53,3 +53,26 @@ sudo apt install apache2
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
+
+- To check the new file in the sites-available directory ```sudo ls /etc/apache2/sites-available```
+
+- Something like this will come up;
+
+```000-default.conf  default-ssl.conf  projectlamp.conf```
+
+- Use a2ensite command to enable the new virtual host: ```sudo a2ensite projectlamp```
+
+- To disable Apache’s default website use a2dissite command: ```sudo a2dissite 000-default```
+- To make sure your configuration file doesn’t contain syntax errors ```sudo apache2ctl configtest```
+ and reload Apache so these changes take effect: ```sudo systemctl reload apache2```
+- Create an index.html file in that location so that we can test that the virtual host works
+```
+sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectlamp/index.html
+```
+
+- Open the website URL using IP address ```http://<Public-IP-Address>:80```  OR  ```http://<Public-DNS-Name>:80```
+
+![Virtual host Web page](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project1/virtual%20host%20web-page.JPG)
+
+## _STEP 4 — ENABLE PHP ON THE WEBSITE_
+----
