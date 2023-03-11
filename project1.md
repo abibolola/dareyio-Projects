@@ -76,3 +76,28 @@ sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/met
 
 ## _STEP 4 — ENABLE PHP ON THE WEBSITE_
 ----
+- Because index.html takes precedence in Apache DirectoryIndex, there is need to edit the ```/etc/apache2/mods-enabled/dir.conf``` file and let index.php file takes precedence
+
+```
+<IfModule mod_dir.c>
+        #Change this:
+        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+        #To this:
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+</IfModule>
+```
+- After saving and closing the file, you will need to reload Apache so the changes take effect:
+
+```sudo systemctl reload apache2```
+- Create a new file named [index.php]() inside your custom web root folder _/var/www/projectlamp_:
+```vi /var/www/projectlamp/index.php```
+
+```php
+<?php
+phpinfo();
+```
+![Final php web page](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project1/final%20php%20page.JPG)
+
+-  It’s best to remove the file you created as it contains sensitive information about your PHP environment -and your Ubuntu server
+
+```sudo rm /var/www/projectlamp/index.php```
