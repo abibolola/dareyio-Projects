@@ -30,3 +30,14 @@ Open a web browser of your choice and try to access following url ```http://<Pub
 
 - When the installation is finished, log in to the MySQL console by typing: ```sudo mysql```
 ![mysql console](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project2/login%20to%20mysql%20console.JPG)
+
+- To enable security measures on the mysql requires an inital secuirty configuration, which is ```sudo mysql_secure_installation```
+
+## _STEP 3 – INSTALLING PHP_
+---
+- In order to install the php to serve dynamic web contents on the nginx server and depndence for php to work with mysql, use this: ```sudo apt install php-fpm php-mysql```
+## -STEP 4 — CONFIGURING NGINX TO USE PHP PROCESSOR_
+---
+- Create a root web direectory for my projectLEMP, which will host the contents of the webiste ```sudo mkdir /var/www/projectLEMP```
+- Assign ownership of the directory with the [$USER]() environment variable, which will reference your current system user: ```sudo chown -R $USER:$USER /var/www/projectLEMP```
+
