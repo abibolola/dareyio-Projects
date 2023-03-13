@@ -36,8 +36,46 @@ Open a web browser of your choice and try to access following url ```http://<Pub
 ## _STEP 3 – INSTALLING PHP_
 ---
 - In order to install the php to serve dynamic web contents on the nginx server and depndence for php to work with mysql, use this: ```sudo apt install php-fpm php-mysql```
-## -STEP 4 — CONFIGURING NGINX TO USE PHP PROCESSOR_
+## _STEP 4 — CONFIGURING NGINX TO USE PHP PROCESSOR_
 ---
 - Create a root web direectory for my projectLEMP, which will host the contents of the webiste ```sudo mkdir /var/www/projectLEMP```
 - Assign ownership of the directory with the [$USER]() environment variable, which will reference your current system user: ```sudo chown -R $USER:$USER /var/www/projectLEMP```
+- Create a new configuration file in Nginx’s sites-available directory
+```
+sudo nano /etc/nginx/sites-available/projectLEMP
+```
+- Then input the configuration on the file, to craete a sites for the projectLEMP.
+- Activate your configuration by linking to the config file from Nginx’s sites-enabled directory:
+```
+sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/
+```
+- You can test your configuration for syntax errors by typing: ``` sudo nginx -t```
+- We also need to disable default Nginx host that is currently configured to listen on port 80, for this run:
+```
+sudo unlink /etc/nginx/sites-enabled/default
+```
+- Nginx will use the configuration next time it is reloaded. Reload Nginx with: ```sudo systemctl reload nginx```
+- The new website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that the new server block works as expected:
+```
+sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html
+```
+- Now open the website URL using IP address:
+
+![new nginx webpage](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project2/new%20nginx%20webpage.JPG)
+
+## _STEP 5 – TESTING PHP WITH NGINX_
+---
+
+Create a test PHP file called info.php in the document root using nano editor
+```
+sudo nano /var/www/projectLEMP/info.php
+```
+- Type or paste the following lines into the new file
+```
+<?php
+phpinfo();
+```
+- When you open domain_name or public_IP in your browser, you will see a web page containing detailed information about your server:
+
+![php info](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project2/php%20webpage.JPG)
 
