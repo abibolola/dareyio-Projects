@@ -79,3 +79,30 @@ phpinfo();
 
 ![php info](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project2/php%20webpage.JPG)
 
+## _STEP 6 – RETRIEVING DATA FROM MYSQL DATABASE WITH PHP_
+---
+- In this step you will create a test database (DB) with simple "To do list" and configure access to it, so the Nginx website would be able to query data from the DB and display it
+
+![show database](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project2/show%20table%20for%20example_user.JPG)
+
+- Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement:
+```
+CREATE TABLE example_database.todo_list (
+mysql>     item_id INT AUTO_INCREMENT,
+mysql>     content VARCHAR(255),
+mysql>     PRIMARY KEY(item_id)
+mysql> );
+```
+- Insert a few rows of content in the test table. This command is repeated 4 times:
+
+```mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");```
+
+- To confirm that the data was successfully saved to your table, run:
+
+```mysql>  SELECT * FROM example_database.todo_list;```
+
+![database rows](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project2/insert%20more%20rows%20in%20the%20table.JPG)
+
+- The PHP script has been connected to the MySQL database. Hence, when the web page is loaded on a browser in a path todo_list.php, it displays the database table:
+
+![php database webpage](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project2/php%20page%20querying%20mysql%20database.JPG)
