@@ -29,3 +29,46 @@ MERN Web stack consists of following components:
 - Put a bare code in the index.js file and start the server with this command: ```node index.js```
 
 ![index.js on port 5000](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project3/server%20running%20on%20port%205000.JPG)
+
+### MODELS
+
+Since the app is going to make use of Mongodb which is a NoSQL database, we need to create a model.
+A model is at the heart of JavaScript based applications, and it is what makes it interactive.
+
+To create a Schema and a model, install mongoose which is a Node.js package that makes working with mongodb easier: ```npm install mongoose```
+
+### MONGODB DATABASE
+
+- We need a database where we will store our data. For this we will make use of mLab. mLab provides MongoDB database as a service solution (DBaaS), so to make life easy, you will need to sign up for a shared clusters free account, which is ideal for our use case
+- Create a file in your Todo directory and name it .env.
+```
+touch .env
+vi .env
+```
+- Add the connection string to access the database in it, just as below:
+```
+DB = 'mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority'
+```
+
+- Start our code using ```node index.js``` and test our backend code with RESTFul API using POSTMAN:
+
+![test DB with postman](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project3/postman_test_DB.JPG)
+
+## _STEP 2 – FRONTEND CREATION_
+---
+
+- To start out with the frontend of the To-do app, we will use the create-react-app command to scaffold our app: ``` npx create-react-app client```
+
+- This will create a new folder in your Todo directory called client, where you will add all the react code.
+```
+npm install concurrently --save-dev
+npm install nodemon --save-dev
+```
+
+- When you are in the Todo directory run: ```npm run dev```
+
+![npm run dev](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project3/npm%20ru%20dev%20in%20todo.JPG)
+
+- The frontend application using React.js that communicates with a backend application written using Expressjs.
+
+![final webpage](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/Project3/Final%20webPage.JPG)
