@@ -64,3 +64,13 @@ echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/
 
 ```sudo npm install express mongoose```
 
+![book ls](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project4/books%20ls.JPG)
+
+![initial web page](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project4/final%20page.JPG)
+
+## _Step 4 – Access the routes with AngularJS_
+---
+
+![responsive](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project4/responsive%20page.JPG)
+
+![final_page](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project4/final_final_page.JPG)
