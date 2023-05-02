@@ -83,3 +83,29 @@ sudo mkfs -t ext4 /dev/webdata-vg/logs-lv
 
 ![df -h after mount](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/df%20after%20mounting.JPG)
 
+- Update /etc/fstab file so that the mount configuration will persist after restart of the server.
+
+- The UUID of the device will be used to update the /etc/fstab file using ```sudo bldid```
+
+![sudo blkid](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/sudo%20blkid.JPG)
+
+```sudo vi /etc/fstab```
+
+- Update /etc/fstab in this format using your own UUID and rememeber to remove the leading and ending quotes.
+
+![vi /etc/fstab](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/vi%20etc-fstab.JPG)
+
+- Test the configuration and reload the daemon
+```
+ sudo mount -a
+ sudo systemctl daemon-reload
+ ```
+
+ ![df -h after fstab](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/df%20-h%20after%20fstab.JPG)
+
+ ## Step 2 — Prepare the Database Server
+ ---
+
+ - Use the RedHat Linux for the database server. Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/.
+
+ 
