@@ -108,4 +108,113 @@ sudo mkfs -t ext4 /dev/webdata-vg/logs-lv
 
  - Use the RedHat Linux for the database server. Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/.
 
- 
+ ```sudo vgcreate database-vg /dev/xvdf1 /dev/xvdg1 /dev/xvdh1```
+
+```sudo lvcreate -n db-lv -L 20G database-vg```
+
+```sudo mkfs.ext4 /dev/database-vg/db-lv```
+
+![vgdisplay](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/vgdisplay%20for%20db%20volumes.JPG)
+
+## Step 3 — Install WordPress on your Web Server EC2
+---
+
+- Update the repository ```sudo yum -y update```
+
+- Install wget, Apache and it’s dependencies  ```sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json```
+
+- Start Apache
+```
+sudo systemctl enable httpd
+sudo systemctl start httpd
+```
+
+- To install PHP and it’s dependencies
+
+```
+sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+sudo yum module list php
+sudo yum module reset php
+sudo yum module enable php:remi-7.4
+sudo yum install php php-opcache php-gd php-curl php-mysqlnd
+sudo systemctl start php-fpm
+sudo systemctl enable php-fpm
+setsebool -P httpd_execmem 1
+```
+
+- Restart Apache ```sudo systemctl restart httpd```
+
+- Download wordpress and copy wordpress to var/www/html
+```
+mkdir wordpress
+  cd   wordpress
+  sudo wget http://wordpress.org/latest.tar.gz
+  sudo tar xzvf latest.tar.gz
+  sudo rm -rf latest.tar.gz
+  cp wordpress/wp-config-sample.php wordpress/wp-config.php
+  cp -R wordpress /var/www/html/
+```
+
+- Configure SELinux Policies
+```
+sudo chown -R apache:apache /var/www/html/wordpress
+sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
+sudo setsebool -P httpd_can_network_connect=1
+```
+
+## Step 4 — Install MySQL on your DB Server EC2
+
+```
+sudo yum update
+sudo yum install mysql-server
+```
+
+- Verify that the service is up and running by using ```sudo systemctl status mysqld``` , if it is not running, restart the service and enable it so it will be running even after reboot:
+```
+sudo systemctl restart mysqld
+sudo systemctl enable mysqld
+```
+
+## Step 5 — Configure DB to work with WordPress
+---
+```
+sudo mysql
+CREATE DATABASE wordpress;
+CREATE USER `myuser`@`172.31.90.74` IDENTIFIED BY 'mypass';
+GRANT ALL ON wordpress.* TO `myuser`@`172.31.90.74`;
+FLUSH PRIVILEGES;
+SHOW DATABASES;
+exit
+```
+
+## Step 6 — Configure WordPress to connect to remote database
+---
+
+- Open MySQL port 3306 on DB Server EC2. For extra security, allow access to the DB server ONLY from the Web Server’s IP address, so in the Inbound Rule configuration specify source as /32
+
+![mysql inbound rule](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/DB%20inbound%20rule%20mysql.JPG)
+
+- Install MySQL client and test that you can connect from the Web Server to the DB server by using mysql-client
+```
+sudo yum install mysql
+sudo mysql -u admin -p -h 172.31.18.52
+```
+
+![web to db connect](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/mysql%20connect%20from%20WebServer.JPG)
+
+
+### ENCOUNTER THIS ERROR
+---
+
+![ERROR](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/error%20opening%20wordpress.JPG)
+
+- This requires debugging and troubleshooting
+- The issue is from the WordPress database credentials that are stored in the wp-config.php file
+
+![wp-config edit](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/wp-config%20edit.JPG)
+
+![wordpress open](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/opening%20wordpress.JPG)
+
+![final webpage](https://github.com/abibolola/dareyio-Projects/blob/main/Screenshots/project6/wordpress%20webpage.JPG)
+
